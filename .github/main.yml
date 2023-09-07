@@ -1,0 +1,21 @@
+name: poc
+
+on:
+  workflow_dispatch:
+
+permissions: write-all
+
+jobs:
+  build:
+    steps:
+      - name: Maven build
+        run: mvn verify
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: |
+            target/**/*.xml
+
+
